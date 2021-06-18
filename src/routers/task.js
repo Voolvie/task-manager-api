@@ -14,12 +14,6 @@ router.post('/tasks', auth, async (req, res) => {
     } catch(error) {
         res.status(400).send(error)
     }
-
-    // task.save().then(() => {
-    //     res.status(201).send(task)
-    // }).catch((error) => {
-    //     res.status(400).send(error)
-    // })
 })
 
 //GET /task?completed=false
