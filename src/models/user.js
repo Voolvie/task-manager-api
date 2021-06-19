@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
         lowercase: true,
         validate(value) {
             if (!validator.isEmail(value)) {
-                throw new Error('Email is invalid')
+                throw new Error('Niepoprawny e-mail')
             }
         }
     },
@@ -28,8 +28,8 @@ const userSchema = new mongoose.Schema({
         minlength: 7,
         trim: true,
         validate(value) {
-            if (value.toLowerCase().includes('password')) {
-                throw new Error('Password cannot contain "password"')
+            if (value.toLowerCase().includes('haslo')) {
+                throw new Error('Hasło nie może zawierać "haslo"')
             }
         }
     },
@@ -38,7 +38,7 @@ const userSchema = new mongoose.Schema({
         default: 0,
         validate(value) {
             if (value < 0) {
-                throw new Error('Age must be a postive number')
+                throw new Error('Wiek musi być dodatni')
             }
         }
     },
@@ -86,13 +86,13 @@ userSchema.statics.findByCredentials = async (email, password) => {
     const user = await User.findOne({email})
 
     if(!user){
-        throw new Error('Unable to login')
+        throw new Error('Nie można zalogować')
     }
 
     const isMatch = await bcrypt.compare(password, user.password)
 
     if(!isMatch) {
-        throw new Error('Unable to login')
+        throw new Error('Nie można zalogować')
     }
     return user
 }

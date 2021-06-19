@@ -79,13 +79,13 @@ router.patch('/tasks/:id', auth, async (req,res) => {
     const allowUpdates = ['description', 'completed']
     const isValidOperation = updates.every((update) => allowUpdates.includes(update))
     if(!isValidOperation) {
-        return res.status(400).send({error: 'Invalid updates'})
+        return res.status(400).send({error: 'Złe modyfikacje'})
     }
     try{
         const task = await Task.findOne({_id: req.params.id, owner: req.user._id})
     
         if(!task) {
-            return res.status(404).send({error: "Task not found"})
+            return res.status(404).send({error: "Nie znaleziono zadania"})
         } 
         updates.forEach((update) => task[update] = req.body[update])
         await task.save()

@@ -13,7 +13,7 @@ const upload = multer({
     },
     fileFilter(req, file ,cb) {
         if(!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-        return cb(new Error('Please upload jpg, jpeg or png file'))
+        return cb(new Error('Proszę wgrać jpg, jpeg or png file'))
     }
 
     cb(undefined, true)
@@ -77,7 +77,7 @@ router.patch('/users/me', auth, async (req,res) => {
     const allowUpdates = ['name', 'email', 'password', 'age' ]
     const isValidOperation = updates.every((update) => allowUpdates.includes(update))
     if(!isValidOperation) {
-        return  res.status(400).send({ error: 'Invalid updates'})
+        return  res.status(400).send({ error: 'Złe modyfikacje'})
     }
     try{
         updates.forEach((update) => req.user[update] = req.body[update])
